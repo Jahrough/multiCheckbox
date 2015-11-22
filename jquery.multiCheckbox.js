@@ -7,13 +7,11 @@
         },
 
         eventHandler: function (event) {
-            this.appLogic(event.currentTarget, event.delegateTarget);
+            this.toggle($(event.delegateTarget), $(event.currentTarget));
         },
 
-        appLogic: function (checkbox, delegate) {
-            var $checkbox = $(checkbox),
-                $delegate = $(delegate),
-                $toggle = $delegate.find('input[type="checkbox"]').eq(0),
+        toggle: function ($delegate, $checkbox) {
+            var $toggle = $delegate.find('input[type="checkbox"]').eq(0),
                 $checkboxes = $delegate.find('input[type="checkbox"]:gt(0)');
 
             $toggle.data('toggle', true);
@@ -26,9 +24,8 @@
         }
     };
 
-    $.fn.multiCheckbox = function () {
+    $.fn.multiCheckbox = this.each(function () {
         multiCheckbox.init(this);
-        return this;
-    };
+    });
 
 }(jQuery));
