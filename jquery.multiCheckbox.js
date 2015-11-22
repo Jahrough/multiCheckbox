@@ -1,23 +1,26 @@
 (function ($) {
     'use strict';
     var multiCheckbox = {
+        settings: {
+            input: 'input[type="checkbox"]'
+        },
 
         init: function (element) {
-            $(element).on('change', 'input[type="checkbox"]', this.eventHandler.bind(this));
+            $(element).on('change', this.settings.input, this.eventHandler.bind(this));
         },
 
         eventHandler: function (event) {
             this.toggle($(event.delegateTarget), $(event.currentTarget));
         },
 
-        toggle: function ($delegate, $checkbox) {
-            var $toggle = $delegate.find('input[type="checkbox"]').eq(0),
-                $checkboxes = $delegate.find('input[type="checkbox"]:gt(0)');
+        toggle: function ($delegate, $current) {
+            var $toggle = $delegate.find(this.settings.input).eq(0),
+                $checkboxes = $delegate.find(this.settings.input + ':gt(0)');
 
             $toggle.data('toggle', true);
 
-            if ($checkbox.data('toggle')) {
-                $checkboxes.prop('checked', $checkbox.prop('checked'));
+            if ($current.data('toggle')) {
+                $checkboxes.prop('checked', $current.prop('checked'));
             } else {
                 $toggle.prop('checked', ($checkboxes.length === $checkboxes.filter(':checked').length));
             }
