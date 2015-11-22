@@ -1,6 +1,6 @@
 (function ($) {
     'use strict';
-    var multiCheckbox = {
+    var module = {
         settings: {
             input: 'input[type="checkbox"]'
         },
@@ -27,8 +27,10 @@
         }
     };
 
-    $.fn.multiCheckbox = this.each(function () {
-        multiCheckbox.init(this);
-    });
+    $.fn.multiCheckbox = function(){
+        return this.each(function () {
+            module.init(this);
+        });
+    };
 
 }(jQuery));
